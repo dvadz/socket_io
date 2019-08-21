@@ -14,6 +14,11 @@ const server = app.listen(4000, function() {
 const io = socket(server);
 
 io.on("connection", function(socket) {
-  console.log("Made socket connection");
-  console.log(socket.id);
+  console.log("Made socket connection", socket.id);
+
+  // listen for "chat"
+  socket.on("chat", function(data) {
+    // sends data to all sockets
+    io.sockets.emit("chat", data);
+  });
 });
